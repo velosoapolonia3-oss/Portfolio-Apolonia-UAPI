@@ -1,1 +1,146 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Portfólio | Apolonia Veloso </title>
+    <style>
+        /* --- CSS (Estilização Fiel à Imagem) --- */
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-header: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-sec: #555;
+            --accent: #0071e3;
+            --card-bg: #ffffff;
+            --card-border: #e1e1e3;
+        }
+        body.dark-mode {
+            --bg-primary: #1c1c1e;
+            --bg-header: #000000;
+            --text-primary: #f5f5f7;
+            --text-sec: #a1a1a6;
+            --card-bg: #2c2c2e;
+            --card-border: #3a3a3c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { 
+            background-color: var(--bg-primary); 
+            color: var(--text-primary); 
+            transition: 0.3s; 
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--bg-header);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        nav ul { display: flex; list-style: none; align-items: center; gap: 1.5rem; }
+        nav a { text-decoration: none; color: var(--text-primary); font-size: 0.9rem; font-weight: 500; }
+        .btn-dark {
+            background-color: var(--accent);
+            color: white; border: none; padding: 6px 14px;
+            border-radius: 6px; cursor: pointer; font-weight: 600;
+        }
+        .section { max-width: 1000px; margin: auto; padding: 4rem 2rem; text-align: center; }
+        .foto-perfil {
+    width: 180px;      /* Tamanho da foto */
+    height: 180px;     /* Deve ser igual à largura para ser um círculo perfeito */
+    border-radius: 50%; /* Isso faz o círculo */
+    object-fit: cover; /* Isso garante que o rosto não fique "esticado" */
+    border: 3px solid var(--card-border);
+    margin-bottom: 1.5rem;
+}
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .card-projeto {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 1.5rem;
+            text-align: left; transition: 0.3s;
+        }
+        .card-projeto:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card-projeto h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .card-projeto p { font-size: 0.85rem; color: var(--text-sec); margin-bottom: 1rem; }
+        .card-projeto a { color: var(--accent); font-weight: 600; text-decoration: underline; font-size: 0.85rem; }
+        footer { padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-sec); }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <h1 style="font-size: 1.4rem;">Meu Portfólio</h1>
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><button id="dark-mode-toggle" class="btn-dark">Escuro</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="sobre" class="section">
+            <h2>Sobre Mim</h2>
+           <img src="imagem.jpg.jpeg" alt="Foto de Apolonia" class="foto-perfil">
+            <p>Sou estudante de Sistemas para Internet (UAPI), com interesse em desenvolvimento web e criação de soluções digitais organizadas e eficientes.</p>
+        </section>
+        <section id="projetos" class="section">
+            <h2>Meus Projetos</h2>
+            <div id="grid-projetos" class="grid-container">
+                </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 - Portfólio Acadêmico UAPI</p>
+    </footer>
+    <script>
+        /* --- JAVASCRIPT (Lógica e Renderização) --- */
+        
+        // 1. Array de Objetos (Os Projetos do Integrador I)
+        const projetos = [
+            {
+        titulo: "Projeto 01 - SmartFit",
+        desc: "Aplicação para planejamento de treinos personalizados, com foco em organização de rotinas e definição de metas fitness.",
+        link: "https://github.com/usuario/smartfit"
+    },
+    {
+        titulo: "Projeto 02 - SmartFit Check-in",
+        desc: "Sistema web para registro de presença e acompanhamento de frequência em treinos, simulando o controle de acesso em academias.",
+        link: "https://github.com/usuario/smartfit-checkin"
+    },
+    {
+        titulo: "Projeto 03 - SmartFit Progress",
+        desc: "Aplicação para acompanhamento de evolução física, permitindo registrar treinos, cargas e desempenho ao longo do tempo.",
+        link: "https://github.com/usuario/smartfit-progress"
+    }
+        ];
+        // 2. Renderizar os projetos na tela
+        const container = document.getElementById('grid-projetos');
+        projetos.forEach(p => {
+            container.innerHTML += `
+                <div class="card-projeto">
+                    <h3>${p.titulo}</h3>
+                    <p>${p.desc}</p>
+                    <a href="${p.link}" target="_blank">Ver no GitHub</a>
+                </div>
+            `;
+        });
+        // 3. Lógica do Modo Escuro
+        const btn = document.getElementById('dark-mode-toggle');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            btn.textContent = isDark ? 'Claro' : 'Escuro';
+        });
+    </script>
+</body>
+  </html>
